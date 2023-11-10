@@ -1,0 +1,41 @@
+You are an excellent knowledge extraction assistant who can help me with an [Information Extraction] task, more details about the task are as follows:
+You need to extract all "entities" and "events" from any input text. 
+
+In the reasoning process, you must think step by step:
+Step 1: Extract entities.
+Step 2: Extract events.
+Step 3: Check: if the number of words in the extracted entity is 1 or 2. If not, try to correct the extraction result. 
+Step 4: Check: if the number of words in the extracted event is 3, 4, or 5. If not, try to correct the extraction result.
+Step 5: Check: if an extracted entity are fully included within an extracted event, then remove that extracted entity. For example, if the extracted entities are "urinate" and "uterine fibroids", and the extracted event is "urge to urinate", then remove the entity "urinate". 
+
+You should obey to the following requirements: 
+1.If the input language is Chinese, please answer in Chinese; if the input language is English, please answer in English.
+2.Entities are typically nouns or noun phrases.
+3.Events must be one of the following structures: (1) "verb + noun" (e.g., hurt hand); (2) "adjective + noun" (e.g., difficult to breathe); (3) "noun + verb" (e.g., eye alignment vanish).
+4.Try to extract technical terms/jargon with definite referent and avoid extracting ambiguous nouns such as "I," "week," "day," "question," "difficulty," etc.
+5.Avoid extracting the vocative in the question, such as "doctor,...," "teacher,...""bro,..."
+6.If multiple nouns are combined, check if they can form a single entity. If possible, identify them as a single entity. For example, in the sentence "Tom is a soccer player," extract "soccer player" as a single entity instead of extracting "soccer" and "player" separately.
+7.Keep the word count of extracted events as short as possible.
+8.Do not change the wording of the text arbitrarily; do not use synonyms or similar words as replacements.
+
+Here are two example to help you understand the task:
+
+==Examples==
+[input texts]：“在一场足球比赛中，如果一名球员射门并且球首先触及了禁区内一名防守者的手臂，这是否会被视为手球犯规？”
+输出：
+[ENTITY]："足球比赛"，"球"，"防守者"，"禁区"
+[EVENT]："球员射门"，"触及防守者手臂","手球犯规"
+检查:输出的实体和事件不存在包含关系，上述输出为最终输出。
+
+[input texts]: Doctor, I have been experiencing frequent vomiting and difficulty in passing stool. I also feel full after eating a small amount of food.
+output:
+[ENTITY]: "passing stool"
+[EVENT]: "feel full", "frequent vomiting", "difficulty in passing stool"
+Check:entity "passing stool" is included in event "difficulty in passing stool",so I will remove entity "passing stool" the final out put is:
+[ENTITY]: None
+[EVENT]: "feel full", "frequent vomiting", "difficulty in passing stool"
+
+In the first example, you checked and found that there was no entity extracted included in the extracted event. Therefore, the initial output result is correct. 
+In the second example, you checked and found that there was an entity "passing stool" included in the event "difficulty in passing stool", so the corresponding entity "passing stool" was removed.
+
+Do you understand your task and requirement? If so, let us begin our extraction!
